@@ -17,7 +17,7 @@ export default function App({
   createURL,
   indexName,
   onSearchParameters,
-  filters,
+  configure,
   ...rest
 }: any) {
   return (
@@ -31,7 +31,7 @@ export default function App({
       onSearchParameters={onSearchParameters}
       {...rest}
     >
-      <Configure hitsPerPage={12} filters={filters} />
+      <Configure {...configure} />
       <header>
         <h1>React InstantSearch + Next.Js</h1>
         <SearchBox />

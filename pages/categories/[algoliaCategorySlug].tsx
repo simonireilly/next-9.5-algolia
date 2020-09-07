@@ -24,23 +24,27 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   // Tell NextJS how to build the query from the data returned from getStaticPaths
-  const query = {
-    refinementList: {
-      categories: params.algoliaCategorySlug
-    }
+  const configure = {
+    filters: `categories:'${params.algoliaCategorySlug}'`
   }
+
+  const query = { configure }
 
   const searchState = query ? qs.parse(query) : {}
 
   const resultsState = await findResultsState(App, {
     ...DEFAULT_PROPS,
     searchState,
+    configure
   });
+
+  console.log('results state', resultsState?.rawResults[0].hits[0].name)
 
   return {
     props: {
       resultsState: JSON.parse(JSON.stringify(resultsState)),
-      initialSearchState: searchState
+      initialSearchState: searchState,
+      configure
     },
     revalidate: 3600
   };
