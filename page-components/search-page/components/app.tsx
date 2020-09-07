@@ -3,33 +3,11 @@ import {
   SearchBox,
   Hits,
   Configure,
-  Highlight,
   Pagination,
   InstantSearch,
 } from 'react-instantsearch-dom';
 
-const HitComponent = ({ hit }) => (
-  <div className="hit">
-    <div>
-      <div className="hit-picture">
-        <img src={`${hit.image}`} />
-      </div>
-    </div>
-    <div className="hit-content">
-      <div>
-        <Highlight attribute="name" hit={hit} />
-        <span> - ${hit.price}</span>
-        <span> - {hit.rating} stars</span>
-      </div>
-      <div className="hit-type">
-        <Highlight attribute="type" hit={hit} />
-      </div>
-      <div className="hit-description">
-        <Highlight attribute="description" hit={hit} />
-      </div>
-    </div>
-  </div>
-)
+import { HitComponent } from './hit'
 
 export default function App({
   searchClient,
@@ -39,6 +17,7 @@ export default function App({
   createURL,
   indexName,
   onSearchParameters,
+  filters,
   ...rest
 }: any) {
   return (
@@ -52,7 +31,7 @@ export default function App({
       onSearchParameters={onSearchParameters}
       {...rest}
     >
-      <Configure hitsPerPage={12} />
+      <Configure hitsPerPage={12} filters={filters} />
       <header>
         <h1>React InstantSearch + Next.Js</h1>
         <SearchBox />
@@ -66,14 +45,8 @@ export default function App({
         </div>
       </main>
       <footer>
+        <br />
         <Pagination />
-        <div>
-          See{' '}
-          <a href="https://github.com/algolia/react-instantsearch/tree/master/examples/next">
-            source code
-        </a>{' '}
-        on github
-      </div>
       </footer>
     </InstantSearch>
   )

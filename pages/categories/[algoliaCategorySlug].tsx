@@ -23,6 +23,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // Tell NextJS how to build the query from the data returned from getStaticPaths
   const query = {
     refinementList: {
       categories: params.algoliaCategorySlug
