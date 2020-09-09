@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   return {
     props: {
       resultsState: JSON.parse(JSON.stringify(resultsState)),
-      initialSearchState: searchState
+      serverSideSearchState: searchState
     }
   };
 }

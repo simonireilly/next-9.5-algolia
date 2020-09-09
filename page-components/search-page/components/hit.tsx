@@ -1,7 +1,5 @@
 
-import {
-  Highlight
-} from 'react-instantsearch-dom'
+import { Highlight } from 'react-instantsearch-dom'
 
 export const HitComponent = ({ hit }) => (
   <div className="hit">
