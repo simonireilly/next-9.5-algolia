@@ -8,6 +8,7 @@ import { App, AlgoliaPage, DEFAULT_PROPS } from '../../page-components/search-pa
 export const getServerSideProps: GetServerSideProps = async ({ query, params }) => {
   // Tell NextJS how to build the query from the data returned
   console.group('getServerSideProps')
+  console.log('Data', { query, params })
   const configure = {
     filters: `categories:'${params.algoliaCategorySlug}'`
   }
