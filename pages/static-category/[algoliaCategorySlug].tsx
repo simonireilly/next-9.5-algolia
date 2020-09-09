@@ -12,10 +12,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: [
       {
         params: {
-          // yarn build && yarn start => http://localhost:3000/categories/Cell%20Phones 🔥
+          // yarn build && yarn start => http://localhost:3000/categories/Cell%20Phone%20Accessories 🔥
           // You can use the search bar to further drill down into the category
           // You can disable JS entirely; this is a fully static page
-          algoliaCategorySlug: 'Cell Phones'
+          algoliaCategorySlug: 'Cell Phone Accessories'
         }
       }
     ], fallback: true
@@ -24,6 +24,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   // Tell NextJS how to build the query from the data returned from getStaticPaths
+  console.group('getStaticProps')
+
   const configure = {
     filters: `categories:'${params.algoliaCategorySlug}'`
   }
@@ -39,11 +41,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
 
   console.log('results state', resultsState?.rawResults[0].hits[0].name)
-
+  console.groupEnd()
   return {
     props: {
       resultsState: JSON.parse(JSON.stringify(resultsState)),
-      initialSearchState: searchState,
+      serverSideSearchState: searchState,
       configure
     },
     revalidate: 3600

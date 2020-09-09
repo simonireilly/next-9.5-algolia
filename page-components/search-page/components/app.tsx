@@ -20,6 +20,10 @@ export default function App({
   configure,
   ...rest
 }: any) {
+  console.group('In Component')
+  console.info('Props', { searchState, resultsState, configure })
+  console.groupEnd()
+  console.groupEnd()
   return (
     <InstantSearch
       searchClient={searchClient}
@@ -31,15 +35,18 @@ export default function App({
       onSearchParameters={onSearchParameters}
       {...rest}
     >
+      {
+        /*
+          Spread the configure used on server/static rendered pages into the mounted
+          component to avoid a repaint on load.
+        */
+      }
       <Configure {...configure} />
       <header>
         <h1>React InstantSearch + Next.Js</h1>
         <SearchBox />
       </header>
       <main>
-        <div className="menu">
-          <RefinementList attribute="categories" />
-        </div>
         <div className="results">
           <Hits hitComponent={HitComponent} />
         </div>
